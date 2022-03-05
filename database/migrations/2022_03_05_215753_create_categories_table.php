@@ -13,12 +13,10 @@ return new class extends Migration
    */
   public function up()
   {
-    Schema::create('orders', function (Blueprint $table) {
+    Schema::create('categories', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('user_id')->constrained('users');
 
-      $table->enum('status', ['PAID', 'OPEN', 'CLOSED']);
-      $table->string('order_name');
+      $table->string('name');
 
       $table->timestamps();
       $table->softDeletes();
@@ -32,6 +30,6 @@ return new class extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('orders');
+    Schema::dropIfExists('categories');
   }
 };
