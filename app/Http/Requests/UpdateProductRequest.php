@@ -29,6 +29,7 @@ class UpdateProductRequest extends FormRequest
       'short_name'  => 'required',
       'description' => 'required',
       'price'      => 'required',
+      'photos' => 'required | array'
     ];
   }
 }

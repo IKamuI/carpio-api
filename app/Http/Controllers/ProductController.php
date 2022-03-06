@@ -32,8 +32,11 @@ class ProductController extends Controller
   {
     $data = $request->validated();
     $product = Product::create($data);
+    
+    
+    $product->photos()->createMany($data['photos']);
 
-    return ProductResource::make($product);
+    return ProductResource::make($product->load(['category', 'photos']));
   }
 
   /**
@@ -44,7 +47,7 @@ class ProductController extends Controller
    */
   public function show(Product $product)
   {
-    return ProductResource::make($product->load('category'));
+    return ProductResource::make($product->load(['category', 'photos']));
   }
 
   /**

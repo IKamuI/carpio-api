@@ -22,7 +22,8 @@ class ProductFactory extends Factory
       'full_name' => $this->faker->name,
       'short_name' => $this->faker->firstName,
       'description' => $this->faker->title,
-      'price' => $this->faker->numerify
+      'price' => $this->faker->numerify,
+
     ];
   }
 }

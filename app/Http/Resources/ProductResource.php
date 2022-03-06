@@ -22,6 +22,7 @@ class ProductResource extends JsonResource
       'description' => $this->description,
       'prince'      => $this->price,
       'category' => CategoryResource::make($this->whenLoaded('category')),
+      'photos' => PhotoResource::collection($this->whenLoaded('photos'))
     ];
   }
 }
