@@ -18,7 +18,7 @@ return new class extends Migration
       $table->foreignId('category_id')->constrained('categories');
 
       $table->string('full_name');
-      $table->string('sort_name');
+      $table->string('short_name');
       $table->string('description');
       $table->double('price');
 
