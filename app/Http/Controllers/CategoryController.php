@@ -42,7 +42,7 @@ class CategoryController extends Controller
    */
   public function show(Category $category)
   {
-    return CategoryResource::make($category);
+    return CategoryResource::make($category->load('products'));
   }
 
   /**
