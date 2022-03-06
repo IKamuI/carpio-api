@@ -2,11 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Models\OrderItem;
-use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrderResource extends JsonResource
+class UserResource extends JsonResource
 {
   /**
    * Transform the resource into an array.
@@ -18,11 +16,7 @@ class OrderResource extends JsonResource
   {
     return [
       'id' => $this->id,
-      'user_id' => $this->user_id,
-      'products' => OrderItemResource::collection($this->whenLoaded('products')),
-      'client' => UserResource::make($this->whenLoaded('client')),
-      'status' => $this->status,
-      'order_name' => $this->order_name
+      'name' => $this->name
     ];
   }
 }
