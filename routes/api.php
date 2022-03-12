@@ -1,6 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\AuthenticatedTokenController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,28 +18,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-  return $request->user();
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('/verify_token', [AuthenticatedTokenController::class, 'verifyToken']);
 });
 
-Route::apiResource('order/items', OrderItemController::class);
+Route::group(['middleware' => 'guest'], function () {
+    Route::post('/token', [AuthenticatedTokenController::class, 'store'])
+                ->name('login.token');
 
-// Route::middleware(['middleware' => 'auth:sanctum'])->group(function () {
-//   Route::apiResources(
-//     [
-//       'categories' => CategoryController::class,
-//       'products' => ProductController::class,
-//       'orders' => OrderController::class
-//     ],
-//     ['except' => ['index', 'show']]
-//   );
-// });
+    Route::apiResource('order/items', OrderItemController::class);
 
-Route::apiResources(
-  [
-    'categories' => CategoryController::class,
-    'products' => ProductController::class,
-    'orders' => OrderController::class
-  ],
+    Route::apiResources(
+        [
+            'categories' => CategoryController::class,
+            'products' => ProductController::class,
+            'orders' => OrderController::class
+        ],
   // ['only' => ['index', 'show']]
-);
+    );
+});
