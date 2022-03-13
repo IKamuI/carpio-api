@@ -35,7 +35,6 @@ class AuthenticatedTokenController extends Controller
     public function verifyToken(Request $request)
     {
         $user = $request->user();
-        return response($request->user());
         $user->withAccessToken($request->bearerToken());
         return response(UserResource::make($user));
     }
