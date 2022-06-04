@@ -1,7 +1,9 @@
 <?php
-
 namespace App\Models;
 
+use Laravel\Scout\Attributes\SearchUsingFullText;
+use Laravel\Scout\Attributes\SearchUsingPrefix;
+use Laravel\Scout\Searchable;
 
 /**
  * App\Models\Product
@@ -38,17 +40,34 @@ namespace App\Models;
  */
 class Product extends Model
 {
+    use Searchable;
 
-  protected $fillable = ['category_id', 'full_name', 'short_name', 'description', 'price'];
+    protected $fillable = ['category_id', 'full_name', 'short_name', 'description', 'price'];
 
-  public function photos()
-  {
-    return $this->morphMany(Photo::class, 'phototable');
-  }
+    public function photos()
+    {
+        return $this->morphMany(Photo::class, 'phototable');
+    }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
-  public function category()
-  {
-    return $this->belongsTo(Category::class);
-  }
+    protected function makeAllSearchableUsing($query)
+    {
+        return $query->with('photos');
+    }
+
+    // #[SearchUsingPrefix(['id', 'email'])]
+    // #[SearchUsingFullText(['bio'])]
+    public function toSearchableArray()
+    {
+        return [
+            'full_name' => $this->name,
+            'short_name' => $this->email,
+            'description' => $this->bio,
+            'price' => $this->price
+        ];
+    }
 }

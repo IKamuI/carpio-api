@@ -12,13 +12,16 @@
     "guzzlehttp/guzzle": "^7.2",
     "laravel/framework": "^9.2",
     "laravel/sanctum": "^2.14.1",
+    "laravel/scout": "^9.4",
     "laravel/tinker": "^2.7"
   },
   "require-dev": {
+    "barryvdh/laravel-debugbar": "^3.6",
     "barryvdh/laravel-ide-helper": "^2.12",
     "fakerphp/faker": "^1.9.1",
     "laravel/breeze": "^1.8",
     "laravel/sail": "^1.13",
+    "laravel/telescope": "^4.7",
     "mockery/mockery": "^1.4.4",
     "nunomaduro/collision": "^6.1",
     "phpunit/phpunit": "^9.5.10",
@@ -54,7 +57,8 @@
   "extra": {
     "laravel": {
       "dont-discover": [
-        "barryvdh/laravel-ide-helper"
+        "barryvdh/laravel-ide-helper",
+        "laravel/telescope"
       ]
     }
   },
